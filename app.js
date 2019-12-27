@@ -14,11 +14,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 //globals
-let posts = [];
+let postsArray = [];
 
 app.get('/' , (req, res) => {
-  console.log(posts);
-  res.render('home' , {homeStartingContent : homeStartingContent , posts : posts});
+  res.render('home' , {homeStartingContent : homeStartingContent , postsArray : postsArray});
 });
 
 app.get('/about' , (req, res) => {
@@ -33,12 +32,22 @@ app.get('/compose' , (req, res) => {
   res.render('compose');
 });
 
+app.get('/posts/:title', (req, res) => {
+  let title = req.params.title;
+  for(let i = 0 ; i < postsArray.length ; i++){
+    if(postsArray[i].title === title) {
+      var content = postsArray[i].post;
+    }
+  }
+  res.render('post', {title : title , content : content});
+});
+
 app.post('/compose' , (req, res) => {
   let data = {
     title : req.body.title,
     post : req.body.post
   };
-  posts.push(data);
+  postsArray.push(data);
   res.redirect('/');
 });
 
