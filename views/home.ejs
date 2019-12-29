@@ -4,7 +4,6 @@
 <% postsArray.forEach((post) => { %>
     <% let truncatedPost = post.post.substr(0,150) + '...';%>
     <h2><%= post.title %></h2>
-    <p><%= truncatedPost %><a href="http://localhost:3000/posts/<%=post.title%>">(Read more)</a> </p>
-    <% console.log(post.title); %>
+    <p><%= truncatedPost %><a href="http://localhost:3000/posts/<%=post._id%>">(Read more)</a> </p>
 <% }); %>
 <%- include('partials/footer') -%>
